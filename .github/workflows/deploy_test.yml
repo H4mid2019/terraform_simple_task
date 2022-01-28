@@ -37,3 +37,13 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: terraform apply -auto-approve
+      
+      - name: Test API Endpoint
+        run: echo "base_url = ${{ steps.apply.* }}"
+
+
+      - name: ALaki
+        run: echo "base_url = ${{ steps.apply.outputs.base_url }}"
+
+      - name: Outcome
+        run: echo "bb = ${{ steps.apply.outcome }}"
