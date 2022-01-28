@@ -38,54 +38,30 @@ resource "aws_default_network_acl" "default_network_acl" {
   }
 }
 
-
-resource "aws_default_security_group" "default_security_group" {
+resource "aws_security_group" "lambda_security_group" {
+  name   = "lambda_security_group"
   vpc_id = aws_vpc.lambda_vpc.id
 
-  ingress {
-    protocol  = -1
-    self      = true
-    from_port = 0
-    to_port   = 0
+  dynamic "ingress" {
+    for_each = toset(local.ports_in)
+    content {
+      description = "open some useful ports"
+      from_port   = ingress.value
+      to_port     = ingress.value
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+    }
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-    # cidr_blocks = ["127.0.0.1/32"]
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = {
-    Name = "lambda-default-security-group"
+    Name = "lambda-security-group"
   }
 }
-
-# resource "aws_security_group" "lambda_security_group" {
-#   name   = "lambda_security_group"
-#   vpc_id = aws_vpc.lambda_vpc.id
-
-#   dynamic "ingress" {
-#     for_each = toset(local.ports_in)
-#     content {
-#       description = "open some useful ports"
-#       from_port   = ingress.value
-#       to_port     = ingress.value
-#       protocol    = "tcp"
-#       cidr_blocks = ["0.0.0.0/0"]
-#     }
-#   }
-
-#   egress {
-#     from_port        = 0
-#     to_port          = 0
-#     protocol         = "-1"
-#     cidr_blocks      = ["0.0.0.0/0"]
-#     ipv6_cidr_blocks = ["::/0"]
-#   }
-
-#   tags = {
-#     Name = "lambda-security-group"
-#   }
-# }
