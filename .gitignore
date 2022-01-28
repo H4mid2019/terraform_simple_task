@@ -1,0 +1,5 @@
+.te*
+output/
+*.tfstate
+*.backup
+*.log
