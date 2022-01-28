@@ -43,6 +43,7 @@ jobs:
       
       - name: Test API Endpoint
         run: |
+          sleep 10
           STATUS_CODE=$(curl -sL -w "%{http_code}" -I ${{ steps.apply.outputs.gate_url }} -o /dev/null)
           if [[ "${STATUS_CODE}" != "200" ]]; then
               echo "::error:: The gateway url status code was'nt 200. It was ${STATUS_CODE}"
@@ -53,7 +54,7 @@ jobs:
               echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
               exit 1
           fi
-          
+
       - name: 'Terraform Plan Destroy'
         uses: hashicorp/terraform-github-actions@master
         with:
