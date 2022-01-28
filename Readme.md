@@ -6,9 +6,9 @@ lambda, API Gateway, SG, VPC, CI/CD(workflow), Python
 ## Setup
 
 This Repo has been tested automatically with GitHub workflow for deploying you need to install AWS CLI as well
-as `access_key_id` and `access_key_secret` after creating a user with the right permissions and at least programmatic 
+as `access_key_id` and `access_key_secret` after creating a user with the correct permissions and at least programmatic 
 access to AWS along with initializing the AWS CLI, then you need the terraform cli,
-also a workspace on terraform, (per sure you need an account) after that just go the target folder (e.g. cd terraform_simple_task):
+also, a workspace on terraform, (per sure you need an account) after that go the target folder (e.g., cd terraform_simple_task):
 
 ## Tests in Workflow
 
@@ -16,7 +16,7 @@ also a workspace on terraform, (per sure you need an account) after that just go
 - terraform validation 
 - terraform apply
 - terraform destroy
-- api endpoint tests
+- API endpoint tests
 
 ## Running
 
@@ -29,4 +29,6 @@ then it returns the AWS_API_GATEWAY endpoint (named base_url) which you can send
 
 ### NOTICE
 
-> It's not safe to deploy, only for tests purposes.
+> It's not safe to deploy, only for test purposes.
+
+
