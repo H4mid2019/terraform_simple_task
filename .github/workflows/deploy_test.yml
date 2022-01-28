@@ -62,7 +62,7 @@ jobs:
           args: '-destroy -out=./destroy-plan'
 
       - name: 'Run Destroy command'
-        run: terraform apply "./destroy-plan" -auto-approve
+        run: terraform apply "./destroy-plan"
 
 
 
