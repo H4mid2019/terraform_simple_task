@@ -20,6 +20,7 @@ jobs:
       - name: Setup Terraform 🏗
         uses: hashicorp/setup-terraform@v1
         with:
+          terraform_wrapper: false
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Terraform Format
@@ -36,8 +37,29 @@ jobs:
 
       - name: Terraform Apply
         id: apply
-        run: terraform apply -auto-approve
+        run: |
+          terraform apply -auto-approve
+          echo "::set-output name=gate_url::$(terraform output base_url)"
       
       - name: Test API Endpoint
-        run: terraform output -raw base_url
+        run: |
+          STATUS_CODE=$(curl -sL -w "%{http_code}" -I ${{ steps.apply.outputs.gate_url }} -o /dev/null)
+          if [[ "${STATUS_CODE}" != "200" ]]; then
+              echo "::error:: The gateway url status code was'nt 200. It was ${STATUS_CODE}"
+              exit 1
+          fi
+          RESPONSE=$(curl -s ${{ steps.apply.outputs.gate_url }})
+          if [[ "${RESPONSE}" != '{"message ": "Traditional Hello world"}' ]]; then
+              echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
+              exit 1
+          fi
+          
+      - name: 'Terraform Plan Destroy'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: latest
+          tf_actions_subcommand: 'plan'
+          args: '-destroy -out=./destroy-plan'
+
+
 
