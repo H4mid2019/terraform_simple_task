@@ -44,15 +44,15 @@ jobs:
       - name: Test API Endpoint
         run: |
           sleep 90 
-          STATUS_CODE=$(curl -sL -w "%{http_code}" -I ${{ steps.apply.outputs.gate_url }} -o /dev/null)
+          STATUS_CODE=$(curl -X GET -i -sL -w "%{http_code}" -I ${{ steps.apply.outputs.gate_url }} -o /dev/null)
           if [[ "${STATUS_CODE}" != "200" ]]; then
               echo "::error:: The gateway url status code wasn't 200. It was ${STATUS_CODE}"
-              exit 0
+              exit 1
           fi
-          RESPONSE=$(curl -s ${{ steps.apply.outputs.gate_url }})
+          RESPONSE=$(curl -X GET -s ${{ steps.apply.outputs.gate_url }})
           if [[ "${RESPONSE}" != '{"message ": "Traditional Hello world"}' ]]; then
               echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
-              exit 0
+              exit 1
           fi
 
       - name: 'Terraform Plan Destroy'
@@ -61,6 +61,9 @@ jobs:
           tf_actions_version: latest
           tf_actions_subcommand: 'plan'
           args: '-destroy -out=./destroy-plan'
+
+      - name: 'Run Destroy command'
+        run: terraform apply "./destroy-plan" -auto-approve
 
 
 
