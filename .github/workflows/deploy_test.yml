@@ -43,7 +43,7 @@ jobs:
       
       - name: Test API Endpoint
         run: |
-          sleep 10
+          sleep 10 
           STATUS_CODE=$(curl -sL -w "%{http_code}" -I ${{ steps.apply.outputs.gate_url }} -o /dev/null)
           if [[ "${STATUS_CODE}" != "200" ]]; then
               echo "::error:: The gateway url status code was'nt 200. It was ${STATUS_CODE}"
