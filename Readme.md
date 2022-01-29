@@ -2,6 +2,7 @@
 
 _tech_:
 lambda, API Gateway, SG, VPC, CI/CD(workflow), Python
+
 This Repo has been tested automatically with GitHub workflow.
 
 ## Prerequisites
