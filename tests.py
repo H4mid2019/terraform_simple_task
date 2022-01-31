@@ -5,8 +5,10 @@ import sys
 
 
 ENDPOINT = os.getenv("ENDPOINT")
+print("ENDPOINT *******"  + ENDPOINT)
+print("ENDPOINT_STRIPE *******"  + ENDPOINT.strip("\'"))
 try:
-    resp = requests.get(ENDPOINT.strip("'"))
+    resp = requests.get(ENDPOINT.strip("\'"))
 except requests.exceptions.InvalidSchema:
     sys.exit(0)
 
