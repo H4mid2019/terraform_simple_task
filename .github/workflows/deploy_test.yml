@@ -48,11 +48,6 @@ jobs:
               echo "::error:: The gateway url status code wasn't 200. It was ${STATUS_CODE}"
               exit 1
           fi
-          RESPONSE=$(curl -X GET -s ${{ steps.apply.outputs.gate_url }})
-          if [[ "${RESPONSE}" != '{"message ": "Traditional Hello world"}' ]]; then
-              echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
-              exit 1
-          fi
 
       - name: 'Terraform Plan Destroy'
         uses: hashicorp/terraform-github-actions@master
