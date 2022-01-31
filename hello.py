@@ -11,12 +11,16 @@ LAMBDA_FUNCTION_NAME = os.getenv("CAT_LAMBDA")
 client = boto3.client('lambda')
 
 def lambda_handler(event, context):
-    response = client.invoke(
-        FunctionName = LAMBDA_FUNCTION_NAME,
-        InvocationType = 'RequestResponse'
-    )
-    fact = json.load(response['Payload']).get("fact")
-    logger.info(str(fact) + str(type(fact)))
+    try:
+        response = client.invoke(
+            FunctionName = LAMBDA_FUNCTION_NAME,
+            InvocationType = 'RequestResponse'
+        )
+        fact = json.load(response['Payload']).get("fact")
+        logger.info(str(fact))
+    except Exception as e:
+        logger.error(str(e))
+        fact = None
     return {
         "statusCode": 200,
         "headers": {
