@@ -27,7 +27,7 @@ def lambda_handler(event, context):
             "Content-Type": "application/json"
         },
         "body": json.dumps({
-            "message ": "Traditional Hello world",
+            "message": "Traditional Hello world",
             "fact" : fact
         })
     }
