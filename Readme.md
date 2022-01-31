@@ -7,9 +7,11 @@ This Repo has been tested automatically with GitHub workflow.
 
 ## What it's doing?
 
-It demonstrate the connection between two lambda, lambda to API Gateway, lambda to DynamoDB, Lambda to redis, Lambda to VPC and Internet.
+It demonstrates the connection between two lambda, lambda to API Gateway, lambda to DynamoDB, Lambda to redis,
+Lambda to VPC and Internet.
 
-By every endpoint call, the main lambda gets a cat fact from another lambda. This one also retrieves data from DynamoDB or ElasticCache that it got all data from an external API endpoint.
+The main lambda gets a cat fact from another lambda by every endpoint call. The other one also retrieves data
+from DynamoDB or ElasticCache (randomly) that it got all data from an external API endpoint.
 
 ## Prerequisites
 
@@ -25,7 +27,7 @@ By every endpoint call, the main lambda gets a cat fact from another lambda. Thi
 
 For deploying you need to install AWS CLI as well as `access_key_id` and `access_key_secret` after creating a user
 with the correct permissions and at least programmatic access to AWS along with initializing the AWS CLI, then
-you need the terraform cli,also, a workspace on terraform (and the token), (per sure you need an account) after that
+you need terraform cli,also, a workspace on terraform (and the token), (per sure you need an account) after that
 go to the target folder (e.g., cd terraform_simple_task):
 
 ## Tests in Workflow
