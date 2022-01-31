@@ -5,3 +5,4 @@ cat/package/
 *.tfstate
 *.backup
 *.log
+**/__pycache__/

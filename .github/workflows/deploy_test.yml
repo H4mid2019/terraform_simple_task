@@ -34,26 +34,17 @@ jobs:
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
-
+          
       - name: Terraform Apply
         id: apply
         run: |
           terraform apply -auto-approve
           echo "::set-output name=gate_url::$(terraform output base_url)"
       
-      - name: Test API Endpoint
-        run: |
-          STATUS_CODE=$(curl -X GET -i -s -w "%{http_code}" ${{ steps.apply.outputs.gate_url }} -o /dev/null)
-          if [[ "${STATUS_CODE}" != "200" ]]; then
-              echo "::error:: The gateway url status code wasn't 200. It was ${STATUS_CODE}"
-              exit 0
-          fi
-          RESPONSE=$(curl -X GET -s ${{ steps.apply.outputs.gate_url }})
-          RESPONSE_LOWER=$(echo "$RESPONSE" | sed 's/.*/\L&/')
-          if [[ "${RESPONSE}" == *"Hello"* ]] && [[ "${RESPONSE_LOWER}" != *"error"* ]]; then
-              echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
-              exit 0
-          fi
+      - name: Endpoint API Tests with Python
+        env:
+          ENDPOINT: ${{ steps.apply.outputs.gate_url }}
+        run: python3 tests.py
 
       - name: 'Terraform Plan Destroy'
         uses: hashicorp/terraform-github-actions@master
