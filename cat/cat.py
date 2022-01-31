@@ -28,7 +28,7 @@ def put_fact(fact, hash_primary):
 
 def read_fact(hash_primary):
     tr = table.get_item(Key={'CatFactHashKey': hash_primary})
-    return tr['Item'].get("fact")
+    return tr['Item']
 
 def fact_yielder():
     counter = 10
