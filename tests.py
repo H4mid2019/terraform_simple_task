@@ -2,14 +2,26 @@ import unittest
 import requests
 import os
 import sys
+import urllib.request
 
 
 ENDPOINT = os.getenv("ENDPOINT")
-print("ENDPOINT *******"  + ENDPOINT)
-print("ENDPOINT_STRIPE *******"  + ENDPOINT.strip("\'"))
 try:
-    resp = requests.get(ENDPOINT.strip("\'"))
-except requests.exceptions.InvalidSchema:
+    E = ENDPOINT.replace(" ", "").replace("\"", "")
+    print("ENDPOINT *******"  + E)
+except Exception as e:
+    print(str(e))
+    sys.exit(0)
+
+try:
+    resp = urllib.request.urlopen(ENDPOINT)
+except Exception as e:
+    print(str(e))
+
+try:
+    resp = requests.get(E)
+except requests.exceptions.InvalidSchema as ee:
+    print(str(ee))
     sys.exit(0)
 
 print(resp.status_code)
