@@ -49,8 +49,8 @@ jobs:
               exit 0
           fi
           RESPONSE=$(curl -X GET -s ${{ steps.apply.outputs.gate_url }})
-          RESPONSE_LOWER=echo "$RESPONSE" | sed 's/.*/\L&/'
-          if [[ "${RESPONSE}" == *"fact"* ]] && [[ "${RESPONSE_LOWER}" != *"error"* ]]; then
+          RESPONSE_LOWER=$(echo "$RESPONSE" | sed 's/.*/\L&/')
+          if [[ "${RESPONSE}" == *"Hello"* ]] && [[ "${RESPONSE_LOWER}" != *"error"* ]]; then
               echo "::error:: The response wasn't what we expected. It was ${RESPONSE}"
               exit 0
           fi
