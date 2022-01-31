@@ -44,7 +44,9 @@ jobs:
       - name: Endpoint API Tests with Python
         env:
           ENDPOINT: ${{ steps.apply.outputs.gate_url }}
-        run: python3 tests.py
+        run: |
+            pip3 install --user requests
+            python3 tests.py
 
       - name: 'Terraform Plan Destroy'
         uses: hashicorp/terraform-github-actions@master

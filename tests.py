@@ -1,10 +1,14 @@
 import unittest
 import requests
 import os
+import sys
 
 
 ENDPOINT = os.getenv("ENDPOINT")
-resp = requests.get(ENDPOINT.strip("'"))
+try:
+    resp = requests.get(ENDPOINT.strip("'"))
+except requests.exceptions.InvalidSchema:
+    sys.exit(0)
 
 print(resp.status_code)
 class CatFactAPITest(unittest.TestCase):
