@@ -1,5 +1,7 @@
 .te*
 output/
+cat/package/
+.idea/
 *.tfstate
 *.backup
 *.log

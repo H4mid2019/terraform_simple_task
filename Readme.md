@@ -1,8 +1,15 @@
 # Simple Terraform AWS lambda, API GATEWAY
 
 _tech_:
-lambda, API Gateway, SG, VPC, CI/CD(workflow), Python
+lambda, API Gateway, SG, VPC, CI/CD(workflow), Python, DynamoDB, ElastiCache(Redis)
 This Repo has been tested automatically with GitHub workflow.
+
+
+## What it's doing?
+
+It demonstrate the connection between two lambda, lambda to API Gateway, lambda to DynamoDB, Lambda to redis, Lambda to VPC and Internet.
+
+By every endpoint call, the main lambda gets a cat fact from another lambda. This one also retrieves data from DynamoDB or ElasticCache that it got all data from an external API endpoint.
 
 ## Prerequisites
 
@@ -23,8 +30,8 @@ go to the target folder (e.g., cd terraform_simple_task):
 
 ## Tests in Workflow
 
-- terraform format 
-- terraform validation 
+- terraform format
+- terraform validation
 - terraform apply
 - API endpoint tests
 - terraform destroy

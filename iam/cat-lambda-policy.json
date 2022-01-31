@@ -2,14 +2,14 @@
   "Version": "2012-10-17",
   "Statement": [
     {
-      "Sid": "Stmt1643313730859",
-      "Action": "cloudfront:*",
+      "Sid": "Stmt1643314639908",
+      "Action": "logs:*",
       "Effect": "Allow",
       "Resource": "*"
     },
     {
-      "Sid": "Stmt1643314639908",
-      "Action": "logs:*",
+      "Sid": "Stmt1643579489136",
+      "Action": "dynamodb:*",
       "Effect": "Allow",
       "Resource": "*"
     }
