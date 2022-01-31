@@ -26,8 +26,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
 
 
 resource "aws_iam_role_policy" "cat_lambda_policy" {
-  name = "cat_lambda_policy"
-  role = aws_iam_role.cat_lambda_role.id
+  name   = "cat_lambda_policy"
+  role   = aws_iam_role.cat_lambda_role.id
   policy = file("iam/cat-lambda-policy.json")
 }
 
@@ -37,15 +37,15 @@ resource "aws_iam_role" "cat_lambda_role" {
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-       {
-          Effect = "Allow"
-          Principal = {
-             Service = "lambda.amazonaws.com"
-          }
-          Action = "sts:AssumeRole"
-       }
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "lambda.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
     ]
- })
+  })
 
 
 }

@@ -5,9 +5,9 @@ output "base_url" {
 
 
 output "redis_endpoint_address" {
-  value = "${aws_elasticache_cluster.cluster_redis.cache_nodes[0].address}"
+  value = aws_elasticache_cluster.cluster_redis.cache_nodes[0].address
 }
 
 output "aws_dynamodb_table_arn" {
-  value = "${aws_dynamodb_table.cat.arn}"
+  value = aws_dynamodb_table.cat.arn
 }
